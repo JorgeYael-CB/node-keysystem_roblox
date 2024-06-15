@@ -16,7 +16,8 @@ export const RegisterUserUseCase = async (
     throw CustomError.InternalServerError(`El usuario no viene al registrarlo`, {file: __dirname});
   }
 
-  const token = await jwtAdapter.getJwt({id: user.robloxUserId});
+  const token = await jwtAdapter.getJwt({id: user.userRobloxId}, '1d');
+  console.log(user)
 
   return {
     token,

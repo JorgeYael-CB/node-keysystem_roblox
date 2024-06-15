@@ -34,4 +34,28 @@ export class KeySystemController {
       .catch( err => this.handleError(err, res) );
   }
 
+  validateJwt = (req:Request, res:Response) => {
+    const { token } = req.query;
+
+    if( !token ){
+      return res.status(401).json({error: true, messageError: 'Missing token!'});
+    }
+
+    this.jwtAdapter
+      .decodedJwt( token.toString() )
+        .then( data => {
+          if( data ){
+            res.status(200).json({
+              succes: true,
+              data,
+            })
+          } else {
+            res.status(401).json({error: true, messageError: 'Token is not valid!'});
+          }
+
+        })
+        .catch( err => this.handleError(err, res) );
+
+  };
+
 }

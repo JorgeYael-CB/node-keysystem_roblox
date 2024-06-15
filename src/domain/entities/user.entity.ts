@@ -3,7 +3,7 @@ export class UserEntity{
 
   constructor(
     public readonly name:string,
-    public readonly robloxUserId:string,
+    public readonly userRobloxId:string,
     public readonly id:string | number,
     public readonly rebirths: number,
     public readonly banned: boolean,

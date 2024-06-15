@@ -19,6 +19,7 @@ export class KeySystemRoutes{
 
 
     routes.post('/register-user', controller.registerUser);
+    routes.get('/validate-token', controller.validateJwt);
 
 
     return routes;
