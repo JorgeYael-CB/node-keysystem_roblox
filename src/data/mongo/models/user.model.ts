@@ -16,6 +16,21 @@ const UserSchema = new Schema({
   userRobloxId: {
     type: String,
     required: true,
+  },
+
+  banned: {
+    type: Boolean,
+    default: false,
+  },
+
+  roles: {
+    type: [String],
+    default: ['USER'],
+  },
+
+  lastDateGame: {
+    type: Date,
+    default: new Date(),
   }
 
 })
