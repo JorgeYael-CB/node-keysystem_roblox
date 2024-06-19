@@ -17,7 +17,6 @@ export const RegisterUserUseCase = async (
   }
 
   const token = await jwtAdapter.getJwt({id: user.userRobloxId}, '1d');
-  console.log(user)
 
   return {
     token,
