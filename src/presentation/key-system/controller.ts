@@ -4,6 +4,8 @@ import { UsersRepositoryImpl } from "../../infrastucture/repositories";
 import { JwtAdapter } from '../../config/jsonwebtoken';
 import { RegisterUserUseCase } from "../../domain/use-cases";
 import { CustomError } from "../../domain/errors";
+import { UserModel } from "../../data/mongo";
+import { UsersMapper } from "../../infrastucture/mappers";
 
 
 export class KeySystemController {
@@ -34,8 +36,17 @@ export class KeySystemController {
       .catch( err => this.handleError(err, res) );
   }
 
-  validateJwt = (req:Request, res:Response) => {
-    const { token } = req.query;
+  validateJwt = async(req:Request, res:Response) => {
+    const { token, id } = req.query;
+    const user = await UserModel.findById(id);
+
+    if( user && user.roles.includes('BUYER') ){
+      return res.status(200).json({
+        succes: true,
+        data: UsersMapper.getUserFromObj(user),
+      })
+    }
+
 
     if( !token ){
       return res.status(401).json({error: true, messageError: 'Missing token!'});
