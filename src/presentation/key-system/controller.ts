@@ -38,7 +38,8 @@ export class KeySystemController {
 
   validateJwt = async(req:Request, res:Response) => {
     const { token, id } = req.query;
-    const user = await UserModel.findById(id);
+
+    const user = await UserModel.findOne({userRobloxId: id});
 
     if( user && user.roles.includes('BUYER') ){
       return res.status(200).json({
