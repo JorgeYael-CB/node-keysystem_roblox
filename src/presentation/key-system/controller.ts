@@ -43,7 +43,9 @@ export class KeySystemController {
     if( user && user.roles.includes('BUYER') ){
       return res.status(200).json({
         succes: true,
-        data: UsersMapper.getUserFromObj(user),
+        data: {
+          id: UsersMapper.getUserFromObj(user).userRobloxId,
+        },
       })
     }
 
