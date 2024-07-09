@@ -20,6 +20,7 @@ export class KeySystemRoutes{
 
     routes.post('/register-user', controller.registerUser);
     routes.get('/validate-token', controller.validateJwt);
+    routes.post('/check-user-vip', controller.checkUserBuyer);
 
 
     return routes;

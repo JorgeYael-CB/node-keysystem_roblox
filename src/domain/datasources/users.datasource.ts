@@ -7,4 +7,5 @@ export abstract class UsersDatasource {
   abstract registerUser( registerUserDto: RegisterUserDto ): Promise< UserEntity >;
   abstract updateUser( updateUserDto: UpdateUserDto ): Promise< UserEntity >;
   abstract getUsers(  ): Promise< UserEntity[] >;
+  abstract checkUserVip( robloxId: any ):Promise<UserEntity>;
 }

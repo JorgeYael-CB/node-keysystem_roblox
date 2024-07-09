@@ -11,6 +11,15 @@ export class UsersMongoDatasourceImpl implements UsersDatasource {
   constructor(){}
 
 
+  async checkUserVip(robloxId: any): Promise<UserEntity> {
+    const user = await UserModel.findOne({userRobloxId: robloxId});
+    if( !user ) throw CustomError.BadRequestException('User not exist!');
+    if( !user.roles.includes('BUYER') ) throw CustomError.BadRequestException('Is not a buyer');
+
+    return UsersMapper.getUserFromObj( user );
+  }
+
+
   async registerUser(registerUserDto: RegisterUserDto): Promise<UserEntity> {
     const { name, rebirths, userRobloxId } = registerUserDto;
     let user = await UserModel.findOne({userRobloxId});

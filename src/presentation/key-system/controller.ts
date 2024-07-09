@@ -6,6 +6,7 @@ import { RegisterUserUseCase } from "../../domain/use-cases";
 import { CustomError } from "../../domain/errors";
 import { UserModel } from "../../data/mongo";
 import { UsersMapper } from "../../infrastucture/mappers";
+import { CheckUserBuyerUseCase } from "../../domain/use-cases/key-system/check-user-buyer.use-case";
 
 
 export class KeySystemController {
@@ -69,7 +70,17 @@ export class KeySystemController {
 
         })
         .catch( err => this.handleError(err, res) );
-
   };
+
+
+  checkUserBuyer = (req:Request, res:Response ) => {
+    const { userRobloxId } = req.body;
+    if( !userRobloxId ) return res.status(400).json({error: 'No viene el userRobloxId'})
+
+    new CheckUserBuyerUseCase(this.usersRepositoryImpl)
+      .check( userRobloxId )
+        .then( data => res.json(data) )
+        .catch( err => this.handleError(err, res) )
+  }
 
 }

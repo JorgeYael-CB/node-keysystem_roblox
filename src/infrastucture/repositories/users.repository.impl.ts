@@ -11,6 +11,10 @@ export class UsersRepositoryImpl implements UsersRepository {
   ){}
 
 
+  checkUserVip(robloxId: any): Promise<UserEntity> {
+    return this.usersDatasource.checkUserVip( robloxId );
+  }
+
   registerUser(registerUserDto: RegisterUserDto): Promise<UserEntity> {
     return this.usersDatasource.registerUser( registerUserDto );
   }
